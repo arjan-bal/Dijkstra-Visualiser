@@ -15,12 +15,12 @@ export class GridComponent implements OnInit{
   sourceY = 1;
   destX = 7;
   destY = 38;
-  wallMode = false;
+  addWall = false;
   mouseDown = false;
 
   toggleMode() {
-    this.wallMode = !this.wallMode;
-    // console.log(this.wallMode);
+    this.addWall = !this.addWall;
+    // console.log(this.addWall);
   }
 
   onMouseDown() {
@@ -37,12 +37,16 @@ export class GridComponent implements OnInit{
     if (!this.mouseDown) {
       return ;
     }
-    if (!this.wallMode) {
+    if (!this.addWall) {
       this.grid[xCoord][yCoord].isBlocked = false;
     } else {
       this.grid[xCoord][yCoord].isBlocked = true;
     }
     // console.log(xCoord, yCoord);
+  }
+
+  findPath() {
+    console.log("In path function");
   }
 
   ngOnInit() {

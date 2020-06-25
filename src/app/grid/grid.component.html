@@ -11,6 +11,10 @@
       </button>
       <p></p>
     </div>
-    <button (click)="toggleMode()">Add Walls</button>
+    <button (click)="toggleMode()">
+      <span *ngIf="!addWall">Add</span>
+      <span *ngIf="addWall">Remove </span>
+       Walls</button>
+    <button (click)="findPath()">Find shortest Path</button>
   </div>
 </div>
