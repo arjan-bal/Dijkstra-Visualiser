@@ -3,5 +3,6 @@ export interface Node {
   xCoord: number,
   yCoord: number,
   isSource: boolean,
-  isDest: boolean
+  isDest: boolean,
+  distance: number
 }

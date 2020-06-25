@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Node } from './node.model';
+import { queue } from 'rxjs/internal/scheduler/queue';
+import { from } from 'rxjs';
 
 @Component({
   selector: 'app-grid',
@@ -17,6 +19,10 @@ export class GridComponent implements OnInit{
   destY = 38;
   addWall = false;
   mouseDown = false;
+  visitingOrder: Node[] = [];
+  private dx = [-1, 1, 0, 0];
+  private dy = [0, 0, -1, 1];
+
 
   toggleMode() {
     this.addWall = !this.addWall;
@@ -39,14 +45,50 @@ export class GridComponent implements OnInit{
     }
     if (!this.addWall) {
       this.grid[xCoord][yCoord].isBlocked = false;
-    } else {
+    } else if (!this.grid[xCoord][yCoord].isSource && !this.grid[xCoord][yCoord].isDest){
       this.grid[xCoord][yCoord].isBlocked = true;
     }
     // console.log(xCoord, yCoord);
   }
 
+  validCordinate(xCoord: number, yCoord: number) {
+    return (xCoord >= 0 && xCoord < this.height && yCoord >= 0 && yCoord < this.width);
+  }
+
   findPath() {
     console.log("In path function");
+    let queue: [number, Node][] = [[0, this.grid[this.sourceX][this.sourceY]]];
+
+    this.grid[this.sourceX][this.sourceY].distance = 0;
+
+    while (queue.length > 0) {
+      let front = queue.shift();
+      let current = front[1], currentDistance = front[0];
+
+      if (current.distance != currentDistance) {
+        continue;
+      }
+
+      this.visitingOrder.push(current);
+
+      for (var i = 0; i < 4; ++i) {
+        let nextX = current.xCoord + this.dx[i];
+        let nextY = current.yCoord + this.dy[i];
+        if (!this.validCordinate(nextX, nextY)) {
+          continue;
+        }
+        let nextNode = this.grid[nextX][nextY];
+        if (nextNode.isBlocked) {
+          continue;
+        }
+        if (nextNode.distance == -1 || currentDistance + 1 < nextNode.distance) {
+          nextNode.distance = currentDistance + 1;
+          queue.push([currentDistance + 1, nextNode]);
+        }
+      }
+    }
+
+    console.log(this.visitingOrder);
   }
 
   ngOnInit() {
@@ -62,6 +104,7 @@ export class GridComponent implements OnInit{
           yCoord: j,
           isSource: (i == this.sourceX && j == this.sourceY),
           isDest: (i == this.destX && j == this.destY),
+          distance: -1
         };
       }
 
