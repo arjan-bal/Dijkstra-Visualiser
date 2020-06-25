@@ -11,10 +11,39 @@ export class GridComponent implements OnInit{
   height: number = 15;
   width: number = 40;
   grid: Node[][];
-  sourceX = 3;
-  sourceY = 5;
-  destX = 13;
+  sourceX = 7;
+  sourceY = 1;
+  destX = 7;
   destY = 38;
+  wallMode = false;
+  mouseDown = false;
+
+  toggleMode() {
+    this.wallMode = !this.wallMode;
+    // console.log(this.wallMode);
+  }
+
+  onMouseDown() {
+    this.mouseDown = true;
+    // console.log(this.mouseDown);
+  }
+
+  onMouseUp() {
+    this.mouseDown = false;
+    // console.log(this.mouseDown);
+  }
+
+  toggleWall(xCoord: number, yCoord: number) {
+    if (!this.mouseDown) {
+      return ;
+    }
+    if (!this.wallMode) {
+      this.grid[xCoord][yCoord].isBlocked = false;
+    } else {
+      this.grid[xCoord][yCoord].isBlocked = true;
+    }
+    // console.log(xCoord, yCoord);
+  }
 
   ngOnInit() {
     this.grid = new Array(this.height);
