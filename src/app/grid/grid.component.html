@@ -1,7 +1,10 @@
 <div class="grid" (mousedown)="onMouseDown()" (mouseup)="onMouseUp()">
   <div class="inner">
     <div class="row" *ngFor="let row of grid">
-      <button (mousemove)="toggleWall(cell.xCoord, cell.yCoord)" *ngFor="let cell of row">
+      <button
+      class="cell"
+      (mousemove)="toggleWall(cell.xCoord, cell.yCoord)"
+      *ngFor="let cell of row">
         <span *ngIf="cell.isSource">S</span>
         <span *ngIf="cell.isDest">D</span>
         <span *ngIf="!cell.isSource && !cell.isDest && cell.isBlocked">X</span>
