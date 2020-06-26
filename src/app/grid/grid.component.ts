@@ -19,7 +19,6 @@ export class GridComponent implements OnInit{
   destY = 38;
   addWall = false;
   mouseDown = false;
-  visitingOrder: Node[] = [];
   private dx = [-1, 1, 0, 0];
   private dy = [0, 0, -1, 1];
 
@@ -59,21 +58,6 @@ export class GridComponent implements OnInit{
       return new Promise(resolve => setTimeout(resolve, ms));
   }
 
-  async animateExploration() {
-    // console.log(this.visitingOrder);
-    // animate exploration of nodes
-    for (var i = 0; i < this.visitingOrder.length; ++i) {
-      this.visitingOrder[i].isColored = true;
-      await this.delay(15);
-    }
-
-    if (this.grid[this.destX][this.destY].distance >= 0) {
-      this.animatePath();
-    } else {
-      alert('No path to destination!');
-    }
-  }
-
   async animatePath() {
     // animate formation of path
     let currentNode = this.grid[this.destX][this.destY];
@@ -100,7 +84,8 @@ export class GridComponent implements OnInit{
         continue;
       }
 
-      this.visitingOrder.push(current);
+      current.isColored = true;
+      await this.delay(15);
 
       if (current.isDest) {
         break;
@@ -124,7 +109,11 @@ export class GridComponent implements OnInit{
       }
     }
 
-    this.animateExploration();
+    if (this.grid[this.destX][this.destY].distance >= 0) {
+      this.animatePath();
+    } else {
+      alert('No path to destination!');
+    }
   }
 
   ngOnInit() {
