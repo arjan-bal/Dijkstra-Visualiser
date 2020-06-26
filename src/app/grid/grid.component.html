@@ -2,17 +2,20 @@
   <div class="inner">
     <div class="row" *ngFor="let row of grid">
       <button
-      [ngClass]="cell.isColored ? 'visited' : 'not-visited'"
-      [ngClass]="cell.isOnPath ? 'on-path' : 'not-visited'"
-      class="cell"
-      (mousemove)="toggleWall(cell.xCoord, cell.yCoord)"
+      mat-flat-button
+      class="cell {{getClass(cell)}}"
+      (mousemove)="toggleWall(cell)"
       *ngFor="let cell of row">
-        <span *ngIf="cell.isSource">S</span>
-        <span *ngIf="cell.isDest">D</span>
-        <span *ngIf="!cell.isSource && !cell.isDest && cell.isBlocked">X</span>
+        {{getCellText(cell)}}
       </button>
       <p></p>
     </div>
+    <mat-radio-group aria-label="Select an option" [value]="editMode">
+      <mat-radio-button value=1>Add Walls</mat-radio-button>
+      <mat-radio-button value="2">Remove Walls</mat-radio-button>
+      <mat-radio-button value="3">Add Weights</mat-radio-button>
+    </mat-radio-group>
+
     <button (click)="toggleMode()">
       <span *ngIf="!addWall">Add</span>
       <span *ngIf="addWall">Remove </span>

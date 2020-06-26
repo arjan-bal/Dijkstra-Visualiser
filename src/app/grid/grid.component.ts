@@ -10,20 +10,39 @@ import { from } from 'rxjs';
   styleUrls: ['./grid.component.css']
 })
 export class GridComponent implements OnInit{
-  height: number = 15;
-  width: number = 40;
+  height = 15;
+  width = 40;
   grid: Node[][];
-  sourceX = 7;
-  sourceY = 1;
-  destX = 7;
-  destY = 38;
+  sourceNode: Node;
+  destNode: Node;
   addWall = false;
+  editMode = 1;
   mouseDown = false;
   private dx = [-1, 1, 0, 0];
   private dy = [0, 0, -1, 1];
 
+  getClass(node: Node) {
+    if (node.isOnPath) {
+      return 'on-path';
+    } else if (node.isColored) {
+      return 'visited';
+    }
+    return '';
+  }
+
+  getCellText(node: Node) {
+    if (node == this.sourceNode) {
+      return 'S';
+    } else if (node == this.destNode) {
+      return 'D';
+    } else if (node.isBlocked) {
+      return 'X';
+    }
+    return '';
+  }
 
   toggleMode() {
+    console.log(this.editMode);
     this.addWall = !this.addWall;
     // console.log(this.addWall);
   }
@@ -38,20 +57,20 @@ export class GridComponent implements OnInit{
     // console.log(this.mouseDown);
   }
 
-  toggleWall(xCoord: number, yCoord: number) {
+  toggleWall(node: Node) {
     if (!this.mouseDown) {
       return ;
     }
     if (!this.addWall) {
-      this.grid[xCoord][yCoord].isBlocked = false;
-    } else if (!this.grid[xCoord][yCoord].isSource && !this.grid[xCoord][yCoord].isDest){
-      this.grid[xCoord][yCoord].isBlocked = true;
+      node.isBlocked = false;
+    } else if (node != this.sourceNode && node != this.destNode){
+      node.isBlocked = true;
     }
-    // console.log(xCoord, yCoord);
+    // console.log(x, y);
   }
 
-  validCordinate(xCoord: number, yCoord: number) {
-    return (xCoord >= 0 && xCoord < this.height && yCoord >= 0 && yCoord < this.width);
+  validCordinate(x: number, y: number) {
+    return (x >= 0 && x < this.height && y >= 0 && y < this.width);
   }
 
   delay(ms) {
@@ -60,10 +79,10 @@ export class GridComponent implements OnInit{
 
   async animatePath() {
     // animate formation of path
-    let currentNode = this.grid[this.destX][this.destY];
+    let currentNode = this.destNode;
 
     while (currentNode) {
-      // console.log(currentNode.xCoord, currentNode.yCoord);
+      // console.log(currentNode.x, currentNode.y);
       currentNode.isOnPath = true;
       currentNode = currentNode.parent;
       await this.delay(20);
@@ -72,9 +91,9 @@ export class GridComponent implements OnInit{
 
   async findPath() {
     console.log("In path function");
-    let queue: [number, Node][] = [[0, this.grid[this.sourceX][this.sourceY]]];
+    let queue: [number, Node][] = [[0, this.sourceNode]];
 
-    this.grid[this.sourceX][this.sourceY].distance = 0;
+    this.sourceNode.distance = 0;
 
     while (queue.length > 0) {
       let front = queue.shift();
@@ -87,13 +106,13 @@ export class GridComponent implements OnInit{
       current.isColored = true;
       await this.delay(15);
 
-      if (current.isDest) {
+      if (current == this.destNode) {
         break;
       }
 
       for (var i = 0; i < 4; ++i) {
-        let nextX = current.xCoord + this.dx[i];
-        let nextY = current.yCoord + this.dy[i];
+        let nextX = current.x + this.dx[i];
+        let nextY = current.y + this.dy[i];
         if (!this.validCordinate(nextX, nextY)) {
           continue;
         }
@@ -109,7 +128,7 @@ export class GridComponent implements OnInit{
       }
     }
 
-    if (this.grid[this.destX][this.destY].distance >= 0) {
+    if (this.destNode.distance >= 0) {
       this.animatePath();
     } else {
       alert('No path to destination!');
@@ -125,10 +144,8 @@ export class GridComponent implements OnInit{
       for ( var j = 0; j < this.width; ++j) {
         this.grid[i][j] = {
           isBlocked: false,
-          xCoord: i,
-          yCoord: j,
-          isSource: (i == this.sourceX && j == this.sourceY),
-          isDest: (i == this.destX && j == this.destY),
+          x: i,
+          y: j,
           distance: -1,
           isColored: false,
           isOnPath: false,
@@ -137,5 +154,8 @@ export class GridComponent implements OnInit{
       }
 
     }
+
+    this.sourceNode = this.grid[Math.floor(this.height/2)][1];
+    this.destNode = this.grid[Math.floor(this.height/2)][this.width-2];
   }
 }

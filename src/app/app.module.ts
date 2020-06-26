@@ -6,7 +6,10 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { GridComponent } from './grid/grid.component';
 
-import { MatToolbarModule } from '@angular/material/toolbar'
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule }  from '@angular/material/button';
+import { MatRadioModule }  from '@angular/material/radio';
+
 
 @NgModule({
   declarations: [
@@ -17,7 +20,9 @@ import { MatToolbarModule } from '@angular/material/toolbar'
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatButtonModule,
+    MatRadioModule
   ],
   providers: [],
   bootstrap: [AppComponent]
