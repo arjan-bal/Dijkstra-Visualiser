@@ -3,6 +3,7 @@
     <div class="row" *ngFor="let row of grid">
       <button
       [ngClass]="cell.isColored ? 'visited' : 'not-visited'"
+      [ngClass]="cell.isOnPath ? 'on-path' : 'not-visited'"
       class="cell"
       (mousemove)="toggleWall(cell.xCoord, cell.yCoord)"
       *ngFor="let cell of row">

@@ -55,7 +55,38 @@ export class GridComponent implements OnInit{
     return (xCoord >= 0 && xCoord < this.height && yCoord >= 0 && yCoord < this.width);
   }
 
-  findPath() {
+  delay(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  async animateExploration() {
+    // console.log(this.visitingOrder);
+    // animate exploration of nodes
+    for (var i = 0; i < this.visitingOrder.length; ++i) {
+      this.visitingOrder[i].isColored = true;
+      await this.delay(15);
+    }
+
+    if (this.grid[this.destX][this.destY].distance >= 0) {
+      this.animatePath();
+    } else {
+      alert('No path to destination!');
+    }
+  }
+
+  async animatePath() {
+    // animate formation of path
+    let currentNode = this.grid[this.destX][this.destY];
+
+    while (currentNode) {
+      // console.log(currentNode.xCoord, currentNode.yCoord);
+      currentNode.isOnPath = true;
+      currentNode = currentNode.parent;
+      await this.delay(20);
+    }
+  }
+
+  async findPath() {
     console.log("In path function");
     let queue: [number, Node][] = [[0, this.grid[this.sourceX][this.sourceY]]];
 
@@ -87,18 +118,13 @@ export class GridComponent implements OnInit{
         }
         if (nextNode.distance == -1 || currentDistance + 1 < nextNode.distance) {
           nextNode.distance = currentDistance + 1;
+          nextNode.parent = current;
           queue.push([currentDistance + 1, nextNode]);
         }
       }
     }
 
-    console.log(this.visitingOrder);
-
-    this.visitingOrder.forEach(node => {
-      setTimeout(() => {
-        node.isColored = true;
-      }, 20 * node.distance)
-    });
+    this.animateExploration();
   }
 
   ngOnInit() {
@@ -115,7 +141,9 @@ export class GridComponent implements OnInit{
           isSource: (i == this.sourceX && j == this.sourceY),
           isDest: (i == this.destX && j == this.destY),
           distance: -1,
-          isColored: false
+          isColored: false,
+          isOnPath: false,
+          parent: null
         };
       }
 

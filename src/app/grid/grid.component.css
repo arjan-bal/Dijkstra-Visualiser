@@ -20,3 +20,7 @@
 .visited {
   background-color: blue;
 }
+
+.on-path {
+  background-color: yellow;
+}

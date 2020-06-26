@@ -5,5 +5,7 @@ export interface Node {
   isSource: boolean,
   isDest: boolean,
   distance: number,
-  isColored: boolean
+  isColored: boolean,
+  isOnPath: boolean,
+  parent: Node
 }
