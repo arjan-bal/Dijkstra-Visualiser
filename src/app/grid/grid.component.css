@@ -16,3 +16,7 @@
   text-align: center;
   margin: 3rem auto;
 }
+
+.visited {
+  background-color: blue;
+}

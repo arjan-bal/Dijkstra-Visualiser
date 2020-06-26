@@ -4,5 +4,6 @@ export interface Node {
   yCoord: number,
   isSource: boolean,
   isDest: boolean,
-  distance: number
+  distance: number,
+  isColored: boolean
 }

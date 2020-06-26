@@ -2,6 +2,7 @@
   <div class="inner">
     <div class="row" *ngFor="let row of grid">
       <button
+      [ngClass]="cell.isColored ? 'visited' : 'not-visited'"
       class="cell"
       (mousemove)="toggleWall(cell.xCoord, cell.yCoord)"
       *ngFor="let cell of row">

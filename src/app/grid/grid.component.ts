@@ -71,6 +71,10 @@ export class GridComponent implements OnInit{
 
       this.visitingOrder.push(current);
 
+      if (current.isDest) {
+        break;
+      }
+
       for (var i = 0; i < 4; ++i) {
         let nextX = current.xCoord + this.dx[i];
         let nextY = current.yCoord + this.dy[i];
@@ -89,6 +93,12 @@ export class GridComponent implements OnInit{
     }
 
     console.log(this.visitingOrder);
+
+    this.visitingOrder.forEach(node => {
+      setTimeout(() => {
+        node.isColored = true;
+      }, 20 * node.distance)
+    });
   }
 
   ngOnInit() {
@@ -104,7 +114,8 @@ export class GridComponent implements OnInit{
           yCoord: j,
           isSource: (i == this.sourceX && j == this.sourceY),
           isDest: (i == this.destX && j == this.destY),
-          distance: -1
+          distance: -1,
+          isColored: false
         };
       }
 
