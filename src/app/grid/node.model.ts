@@ -5,5 +5,6 @@ export interface Node {
   distance: number,
   isColored: boolean,
   isOnPath: boolean,
-  parent: Node
+  parent: Node,
+  weight: number
 }

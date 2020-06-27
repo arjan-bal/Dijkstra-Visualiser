@@ -28,7 +28,17 @@
   background-color: crimson;
 }
 
-.grid {
+.mat-radio-button {
+  margin: 0 1rem;
+}
+
+.column {
+  display: block;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.mat-grid-list {
   text-align: center;
   margin: 2rem auto;
 }

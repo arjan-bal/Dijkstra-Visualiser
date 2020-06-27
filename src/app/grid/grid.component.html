@@ -18,38 +18,48 @@
         [thumbLabel]="true"
         [(ngModel)]="width">
     </mat-slider>
+
+    Weight:
+    <mat-slider
+        [max]="100"
+        [min]="1"
+        [step]="1"
+        [thumbLabel]="true"
+        [(ngModel)]="weightSlider">
+    </mat-slider>
+    <button
+    mat-fab
+    color="primary"
+    (click)="findPath()">
+      <mat-icon color="accent">navigation</mat-icon>
+  </button>
   </div>
 
   <mat-divider></mat-divider>
 
-  <mat-radio-group
-  aria-label="Select Edit Mode"
-  [(ngModel)]="editMode">
-    <mat-radio-button value="AddWall">Add Walls</mat-radio-button>
-    <mat-radio-button value="RemoveWall">Remove Walls</mat-radio-button>
-    <mat-radio-button value="AddWeight">Add Weights</mat-radio-button>
-  </mat-radio-group>
-
-  <button
-  mat-fab
-  color="primary"
-  (click)="findPath()">
-    <mat-icon color="accent">navigation</mat-icon>
-  </button>
+  <div class="column">
+    <mat-radio-group
+    aria-label="Select Edit Mode"
+    [(ngModel)]="editMode">
+      <mat-radio-button value="AddWall">Add Walls</mat-radio-button>
+      <mat-radio-button value="RemoveWall">Remove Walls</mat-radio-button>
+      <mat-radio-button value="AddWeight">Add Weights</mat-radio-button>
+    </mat-radio-group>
+  </div>
 
   <mat-divider></mat-divider>
 
   <mat-grid-list
   cols="{{ width }}"
-  class="grid" (mousedown)="onMouseDown()"
+  (mousedown)="onMouseDown()"
   (mouseup)="onMouseUp()">
     <mat-grid-tile
     (mousemove)="onMovement(cell)"
     *ngFor="let cell of grid1D">
       <button
         mat-flat-button
-        class="cell {{getClass(cell)}}"
-        (mousemove)="onMovement(cell)">
+        class="cell {{getClass(cell)}}">
+        <mat-icon style="font-size: {{3*(cell.weight-1)}}%;">fitness_center</mat-icon>
       </button>
     </mat-grid-tile>
   </mat-grid-list>

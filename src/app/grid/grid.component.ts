@@ -9,8 +9,8 @@ import { Dijkstra } from './dijkstra';
   styleUrls: ['./grid.component.css']
 })
 export class GridComponent implements OnInit{
-  height = 15;
-  width = 40;
+  height = 10;
+  width = 20;
   grid: Node[][];
   sourceNode: Node;
   destNode: Node;
@@ -18,6 +18,7 @@ export class GridComponent implements OnInit{
   mouseDown = false;
   dijkstra: Dijkstra;
   grid1D: Node[];
+  weightSlider = 20;
 
   getClass(node: Node) {
     if (node == this.sourceNode) {
@@ -60,7 +61,7 @@ export class GridComponent implements OnInit{
     if (this.editMode === 'RemoveWall') {
       node.isBlocked = false;
     } else if (this.editMode === 'AddWeight') {
-      return ;
+      node.weight = this.weightSlider ;
     } else if (this.editMode === 'AddWall' && node != this.sourceNode && node != this.destNode){
       node.isBlocked = true;
     }
@@ -84,7 +85,8 @@ export class GridComponent implements OnInit{
           distance: -1,
           isColored: false,
           isOnPath: false,
-          parent: null
+          parent: null,
+          weight: 1
         };
       }
       this.grid1D = this.grid1D.concat(this.grid[i]);

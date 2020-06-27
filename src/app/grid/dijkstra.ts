@@ -63,9 +63,9 @@ export class Dijkstra {
           continue;
         }
         if (nextNode.distance == -1 || currentDistance + 1 < nextNode.distance) {
-          nextNode.distance = currentDistance + 1;
+          nextNode.distance = currentDistance + current.weight;
           nextNode.parent = current;
-          queue.push(currentDistance + 1, nextNode.x, nextNode.y);
+          queue.push(currentDistance + current.weight, nextNode.x, nextNode.y);
         }
       }
     }
