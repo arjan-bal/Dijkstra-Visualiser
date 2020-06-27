@@ -17,7 +17,7 @@ export class GridComponent implements OnInit{
   editMode: string;
   mouseDown = false;
   dijkstra: Dijkstra;
-  grid1D: Node[] = [];
+  grid1D: Node[];
 
   getClass(node: Node) {
     if (node == this.sourceNode) {
@@ -70,10 +70,10 @@ export class GridComponent implements OnInit{
     this.dijkstra.findPath(this.grid, this.sourceNode, this.destNode);
   }
 
-  ngOnInit() {
+  reinit() {
+    console.log('here');
+    this.grid1D = [];
     this.grid = new Array(this.height);
-    this.dijkstra = new Dijkstra;
-
     for (var i = 0; i < this.height; ++i) {
       this.grid[i] = new Array(this.width);
 
@@ -93,5 +93,10 @@ export class GridComponent implements OnInit{
 
     this.sourceNode = this.grid[Math.floor(this.height/2)][1];
     this.destNode = this.grid[Math.floor(this.height/2)][this.width-2];
+  }
+
+  ngOnInit() {
+    this.dijkstra = new Dijkstra;
+    this.reinit();
   }
 }

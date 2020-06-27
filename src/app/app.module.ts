@@ -12,6 +12,9 @@ import { MatRadioModule }  from '@angular/material/radio';
 import { FormsModule }  from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatSliderModule } from '@angular/material/slider';
 
 
 @NgModule({
@@ -28,7 +31,10 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatRadioModule,
     FormsModule,
     MatCardModule,
-    MatGridListModule
+    MatGridListModule,
+    MatIconModule,
+    MatDividerModule,
+    MatSliderModule
   ],
   providers: [],
   bootstrap: [AppComponent]

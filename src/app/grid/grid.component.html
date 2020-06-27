@@ -1,4 +1,27 @@
 <mat-card>
+
+  <div>
+    Rows:
+    <mat-slider (change)="reinit()"
+        [max]="20"
+        [min]="2"
+        [step]="1"
+        [thumbLabel]="true"
+        [(ngModel)]="height">
+    </mat-slider>
+
+    Columns:
+    <mat-slider (change)="reinit()"
+        [max]="70"
+        [min]="2"
+        [step]="1"
+        [thumbLabel]="true"
+        [(ngModel)]="width">
+    </mat-slider>
+  </div>
+
+  <mat-divider></mat-divider>
+
   <mat-radio-group
   aria-label="Select Edit Mode"
   [(ngModel)]="editMode">
@@ -8,10 +31,13 @@
   </mat-radio-group>
 
   <button
-  mat-flat-button
-  color="accent"
-  (click)="findPath()">Find shortest Path
+  mat-fab
+  color="primary"
+  (click)="findPath()">
+    <mat-icon color="accent">navigation</mat-icon>
   </button>
+
+  <mat-divider></mat-divider>
 
   <mat-grid-list
   cols="{{ width }}"
@@ -27,18 +53,4 @@
       </button>
     </mat-grid-tile>
   </mat-grid-list>
-
-  <!-- <div >
-    <div class="row" *ngFor="let row of grid">
-      <button
-      mat-flat-button
-      class="cell {{getClass(cell)}}"
-      (mousemove)="onMovement(cell)"
-      *ngFor="let cell of row">
-        {{getCellText(cell)}}
-      </button>
-      <p></p>
-    </div>
-  </div> -->
-
 </mat-card>
