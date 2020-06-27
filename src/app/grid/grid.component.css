@@ -1,22 +1,20 @@
 .row {
   display: flex;
-  width: 100%;
   margin: 0 auto;
-}
-
-.inner {
-  display: inline-block;
+  max-width: 100%;
 }
 
 .cell {
+  background-color: tomato;
   min-width: 0;
   width: 1rem;
-  height: 2rem;
+  height: 1.5rem;
+  border-radius: 0;
 }
 
 .grid {
   text-align: center;
-  margin: 3rem auto;
+  margin: 2rem auto;
 }
 
 .visited {

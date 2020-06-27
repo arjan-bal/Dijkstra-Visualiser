@@ -59,7 +59,6 @@ export class GridComponent implements OnInit{
     } else if (this.editMode === 'AddWall' && node != this.sourceNode && node != this.destNode){
       node.isBlocked = true;
     }
-    // console.log(x, y);
   }
 
   validCordinate(x: number, y: number) {

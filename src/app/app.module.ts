@@ -10,6 +10,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule }  from '@angular/material/button';
 import { MatRadioModule }  from '@angular/material/radio';
 import { FormsModule }  from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { FormsModule }  from '@angular/forms';
     MatToolbarModule,
     MatButtonModule,
     MatRadioModule,
-    FormsModule
+    FormsModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,14 +1,18 @@
-<mat-radio-group
-aria-label="Select Edit Mode"
-[(ngModel)]="editMode">
-  <mat-radio-button value="AddWall">Add Walls</mat-radio-button>
-  <mat-radio-button value="RemoveWall">Remove Walls</mat-radio-button>
-  <mat-radio-button value="AddWeight">Add Weights</mat-radio-button>
-</mat-radio-group>
+<mat-card>
+  <mat-radio-group
+  aria-label="Select Edit Mode"
+  [(ngModel)]="editMode">
+    <mat-radio-button value="AddWall">Add Walls</mat-radio-button>
+    <mat-radio-button value="RemoveWall">Remove Walls</mat-radio-button>
+    <mat-radio-button value="AddWeight">Add Weights</mat-radio-button>
+  </mat-radio-group>
 
-<button (click)="findPath()">Find shortest Path</button>
-<div class="grid" (mousedown)="onMouseDown()" (mouseup)="onMouseUp()">
-  <div class="inner">
+  <button
+  mat-flat-button
+  color="accent"
+  (click)="findPath()">Find shortest Path
+  </button>
+  <div class="grid" (mousedown)="onMouseDown()" (mouseup)="onMouseUp()">
     <div class="row" *ngFor="let row of grid">
       <button
       mat-flat-button
@@ -20,4 +24,4 @@ aria-label="Select Edit Mode"
       <p></p>
     </div>
   </div>
-</div>
+</mat-card>
