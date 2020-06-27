@@ -11,6 +11,7 @@ import { MatButtonModule }  from '@angular/material/button';
 import { MatRadioModule }  from '@angular/material/radio';
 import { FormsModule }  from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { MatCardModule } from '@angular/material/card';
     MatButtonModule,
     MatRadioModule,
     FormsModule,
-    MatCardModule
+    MatCardModule,
+    MatGridListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

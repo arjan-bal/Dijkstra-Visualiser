@@ -17,12 +17,19 @@ export class GridComponent implements OnInit{
   editMode: string;
   mouseDown = false;
   dijkstra: Dijkstra;
+  grid1D: Node[] = [];
 
   getClass(node: Node) {
-    if (node.isOnPath) {
+    if (node == this.sourceNode) {
+      return 'source';
+    } else if (node == this.destNode) {
+      return 'dest';
+    } else if (node.isOnPath) {
       return 'on-path';
     } else if (node.isColored) {
       return 'visited';
+    } else if (node.isBlocked) {
+      return 'blocked';
     }
     return '';
   }
@@ -32,8 +39,6 @@ export class GridComponent implements OnInit{
       return 'S';
     } else if (node == this.destNode) {
       return 'D';
-    } else if (node.isBlocked) {
-      return 'X';
     }
     return '';
   }
@@ -83,7 +88,7 @@ export class GridComponent implements OnInit{
           parent: null
         };
       }
-
+      this.grid1D = this.grid1D.concat(this.grid[i]);
     }
 
     this.sourceNode = this.grid[Math.floor(this.height/2)][1];

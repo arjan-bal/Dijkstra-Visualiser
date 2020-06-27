@@ -12,7 +12,23 @@
   color="accent"
   (click)="findPath()">Find shortest Path
   </button>
-  <div class="grid" (mousedown)="onMouseDown()" (mouseup)="onMouseUp()">
+
+  <mat-grid-list
+  cols="{{ width }}"
+  class="grid" (mousedown)="onMouseDown()"
+  (mouseup)="onMouseUp()">
+    <mat-grid-tile
+    (mousemove)="onMovement(cell)"
+    *ngFor="let cell of grid1D">
+      <button
+        mat-flat-button
+        class="cell {{getClass(cell)}}"
+        (mousemove)="onMovement(cell)">
+      </button>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+  <!-- <div >
     <div class="row" *ngFor="let row of grid">
       <button
       mat-flat-button
@@ -23,5 +39,6 @@
       </button>
       <p></p>
     </div>
-  </div>
+  </div> -->
+
 </mat-card>
