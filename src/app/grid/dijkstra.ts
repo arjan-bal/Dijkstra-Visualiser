@@ -1,7 +1,8 @@
 import { Node } from './node.model';
 
 export class Dijkstra {
-  grid: Node[][];
+  private grid: Node[][];
+
   delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
@@ -53,7 +54,7 @@ export class Dijkstra {
         if (!this.validCordinate(nextX, nextY)) {
           continue;
         }
-        let nextNode = this.grid[nextX][nextY];
+        let nextNode = grid[nextX][nextY];
         if (nextNode.isBlocked) {
           continue;
         }
