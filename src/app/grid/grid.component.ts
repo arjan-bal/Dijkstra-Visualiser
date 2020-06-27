@@ -71,13 +71,12 @@ export class GridComponent implements OnInit{
   }
 
   reinit() {
-    console.log('here');
     this.grid1D = [];
     this.grid = new Array(this.height);
     for (var i = 0; i < this.height; ++i) {
       this.grid[i] = new Array(this.width);
 
-      for ( var j = 0; j < this.width; ++j) {
+      for (var j = 0; j < this.width; ++j) {
         this.grid[i][j] = {
           isBlocked: false,
           x: i,

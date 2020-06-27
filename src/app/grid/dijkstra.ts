@@ -1,4 +1,5 @@
 import { Node } from './node.model';
+import { MinHeap } from './min-heap';
 
 export class Dijkstra {
   private grid: Node[][];
@@ -29,17 +30,20 @@ export class Dijkstra {
 
     console.log("In path function");
     this.grid = grid;
-    let queue: [number, Node][] = [[0, sourceNode]];
-
+    const queue = new MinHeap;
     sourceNode.distance = 0;
+    queue.push(0, sourceNode.x, sourceNode.y);
 
-    while (queue.length > 0) {
-      let front = queue.shift();
-      let current = front[1], currentDistance = front[0];
 
-      if (current.distance != currentDistance) {
+    while (!queue.empty()) {
+      let front = queue.pop();
+      let currentDistance = front[0], cx = front[1], cy = front[2];
+
+      if (grid[cx][cy].isColored) {
         continue;
       }
+
+      const current = grid[cx][cy];
 
       current.isColored = true;
       await this.delay(15);
@@ -49,8 +53,8 @@ export class Dijkstra {
       }
 
       for (var i = 0; i < 4; ++i) {
-        let nextX = current.x + dx[i];
-        let nextY = current.y + dy[i];
+        let nextX = cx + dx[i];
+        let nextY = cy + dy[i];
         if (!this.validCordinate(nextX, nextY)) {
           continue;
         }
@@ -61,7 +65,7 @@ export class Dijkstra {
         if (nextNode.distance == -1 || currentDistance + 1 < nextNode.distance) {
           nextNode.distance = currentDistance + 1;
           nextNode.parent = current;
-          queue.push([currentDistance + 1, nextNode]);
+          queue.push(currentDistance + 1, nextNode.x, nextNode.y);
         }
       }
     }
