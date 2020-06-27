@@ -9,6 +9,7 @@ import { GridComponent } from './grid/grid.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule }  from '@angular/material/button';
 import { MatRadioModule }  from '@angular/material/radio';
+import { FormsModule }  from '@angular/forms';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { MatRadioModule }  from '@angular/material/radio';
     BrowserAnimationsModule,
     MatToolbarModule,
     MatButtonModule,
-    MatRadioModule
+    MatRadioModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

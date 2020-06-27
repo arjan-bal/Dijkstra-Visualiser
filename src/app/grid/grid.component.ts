@@ -1,8 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { Node } from './node.model';
-import { queue } from 'rxjs/internal/scheduler/queue';
-import { from } from 'rxjs';
 
 @Component({
   selector: 'app-grid',
@@ -15,8 +13,7 @@ export class GridComponent implements OnInit{
   grid: Node[][];
   sourceNode: Node;
   destNode: Node;
-  addWall = false;
-  editMode = 1;
+  editMode: string;
   mouseDown = false;
   private dx = [-1, 1, 0, 0];
   private dy = [0, 0, -1, 1];
@@ -41,12 +38,6 @@ export class GridComponent implements OnInit{
     return '';
   }
 
-  toggleMode() {
-    console.log(this.editMode);
-    this.addWall = !this.addWall;
-    // console.log(this.addWall);
-  }
-
   onMouseDown() {
     this.mouseDown = true;
     // console.log(this.mouseDown);
@@ -57,13 +48,15 @@ export class GridComponent implements OnInit{
     // console.log(this.mouseDown);
   }
 
-  toggleWall(node: Node) {
+  onMovement(node: Node) {
     if (!this.mouseDown) {
       return ;
     }
-    if (!this.addWall) {
+    if (this.editMode === 'RemoveWall') {
       node.isBlocked = false;
-    } else if (node != this.sourceNode && node != this.destNode){
+    } else if (this.editMode === 'AddWeight') {
+      return ;
+    } else if (this.editMode === 'AddWall' && node != this.sourceNode && node != this.destNode){
       node.isBlocked = true;
     }
     // console.log(x, y);
