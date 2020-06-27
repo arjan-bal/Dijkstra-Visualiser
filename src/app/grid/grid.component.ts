@@ -96,6 +96,22 @@ export class GridComponent implements OnInit{
     this.destNode = this.grid[Math.floor(this.height/2)][this.width-2];
   }
 
+  randomWeights() {
+    for (let i = 0; i < this.height; ++i) {
+      for (let j = 0; j < this.width; ++j) {
+        this.grid[i][j].weight = Math.ceil(Math.random() * 100);
+      }
+    }
+  }
+
+  randomWalls() {
+    for (let i = 0; i < this.height; ++i) {
+      for (let j = 0; j < this.width; ++j) {
+        this.grid[i][j].isBlocked = (Math.random() < 0.3);
+      }
+    }
+  }
+
   ngOnInit() {
     this.dijkstra = new Dijkstra;
     this.reinit();

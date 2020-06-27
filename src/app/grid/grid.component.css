@@ -12,6 +12,10 @@
   background-color: tomato;
 }
 
+div .mat-flat-button {
+  margin: 0 1rem;
+}
+
 .spacer {
   float: right;
 }

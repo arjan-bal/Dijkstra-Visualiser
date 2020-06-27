@@ -38,12 +38,11 @@ export class Dijkstra {
     while (!queue.empty()) {
       let front = queue.pop();
       let currentDistance = front[0], cx = front[1], cy = front[2];
+      const current = grid[cx][cy];
 
-      if (grid[cx][cy].isColored) {
+      if (current.isColored) {
         continue;
       }
-
-      const current = grid[cx][cy];
 
       current.isColored = true;
       await this.delay(15);
@@ -58,11 +57,11 @@ export class Dijkstra {
         if (!this.validCordinate(nextX, nextY)) {
           continue;
         }
-        let nextNode = grid[nextX][nextY];
+        const nextNode = grid[nextX][nextY];
         if (nextNode.isBlocked) {
           continue;
         }
-        if (nextNode.distance == -1 || currentDistance + 1 < nextNode.distance) {
+        if (nextNode.distance == -1 || currentDistance + current.weight < nextNode.distance) {
           nextNode.distance = currentDistance + current.weight;
           nextNode.parent = current;
           queue.push(currentDistance + current.weight, nextNode.x, nextNode.y);
