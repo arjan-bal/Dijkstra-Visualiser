@@ -54,8 +54,8 @@ export class GridComponent implements OnInit{
     // console.log(this.mouseDown);
   }
 
-  onMovement(node: Node) {
-    if (!this.mouseDown) {
+  onMovement(node: Node, isClick: boolean = false) {
+    if (!isClick && !this.mouseDown) {
       return ;
     }
     if (this.editMode === 'RemoveWall') {

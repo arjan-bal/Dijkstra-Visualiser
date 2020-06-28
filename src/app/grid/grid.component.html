@@ -74,6 +74,7 @@
     (mousemove)="onMovement(cell)"
     *ngFor="let cell of grid1D">
       <button
+        (click)="onMovement(cell, true)"
         mat-flat-button
         class="cell {{getClass(cell)}}">
         <mat-icon style="font-size: {{3*(cell.weight-1)}}%;">fitness_center</mat-icon>
