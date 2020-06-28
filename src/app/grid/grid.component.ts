@@ -19,6 +19,8 @@ export class GridComponent implements OnInit{
   dijkstra: Dijkstra;
   grid1D: Node[];
   weightSlider = 20;
+  draggingSource = false;
+  draggingDest = false;
 
   getClass(node: Node) {
     if (node == this.sourceNode) {
@@ -51,6 +53,8 @@ export class GridComponent implements OnInit{
 
   onMouseUp() {
     this.mouseDown = false;
+    this.draggingSource = false;
+    this.draggingDest = false;
     // console.log(this.mouseDown);
   }
 
@@ -58,11 +62,19 @@ export class GridComponent implements OnInit{
     if (!isClick && !this.mouseDown) {
       return ;
     }
-    if (this.editMode === 'RemoveWall') {
+    if (this.draggingSource) {
+      this.sourceNode = node;
+    } else if (this.draggingDest) {
+      this.destNode = node;
+    } else if (node == this.sourceNode) {
+      this.draggingSource = true;
+    } else if (node == this.destNode) {
+      this.draggingDest = true;
+    } else if (this.editMode === 'RemoveWall') {
       node.isBlocked = false;
     } else if (this.editMode === 'AddWeight') {
       node.weight = this.weightSlider ;
-    } else if (this.editMode === 'AddWall' && node != this.sourceNode && node != this.destNode){
+    } else if (this.editMode === 'AddWall'){
       node.isBlocked = true;
     }
   }
