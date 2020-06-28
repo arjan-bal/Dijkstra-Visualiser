@@ -12,6 +12,10 @@
   background-color: tomato;
 }
 
+.left-col {
+  width: 3rem;
+}
+
 div .mat-flat-button {
   margin: 0 1rem;
 }
@@ -44,6 +48,10 @@ div .mat-flat-button {
   display: block;
   margin-top: 1rem;
   margin-bottom: 1rem;
+}
+
+table {
+  text-align: center;
 }
 
 .mat-grid-list {

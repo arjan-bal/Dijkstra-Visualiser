@@ -81,4 +81,63 @@
       </button>
     </mat-grid-tile>
   </mat-grid-list>
+  <mat-accordion>
+    <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <h1>Instructions</h1>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+      Drag source and destination to change them
+      <p></p>
+      Select the current edit mode using the radio buttons provided
+      To edit the grid simply click or drag over the cells you want to add/remove a wall or add a weight to
+      <p></p>
+      <h3>Symbols and their meanings: </h3>
+      <p></p>
+      <table>
+        <tr>
+          <th mat-cell>Symbol</th>
+          <th mat-cell>Meaning</th>
+        </tr>
+
+        <tr>
+          <td class="left-col cell source"></td>
+          <td>Source Cell</td>
+        </tr>
+        <tr>
+          <td class="left-col cell dest"></td>
+          <td>Destination Cell</td>
+        </tr>
+        <tr>
+          <td class="left-col cell visited"></td>
+          <td>Explored Cell</td>
+        </tr>
+        <tr>
+          <td class="left-col cell"></td>
+          <td>Unvisited Cell</td>
+        </tr>
+        <tr>
+          <td class="left-col cell on-path"></td>
+          <td>On the shortest path from source to destination</td>
+        </tr>
+        <tr>
+          <td class="left-col cell blocked"></td>
+          <td>Blocked Cell</td>
+        </tr>
+        <tr>
+          <td class="left-col"><mat-icon>fitness_center</mat-icon></td>
+          <td>Weight of cell, larger size indicates higher weight</td>
+        </tr>
+        <tr>
+          <td class="left-col"><mat-icon color="accent">navigation</mat-icon></td>
+          <td>Start simulation</td>
+        </tr>
+        <tr>
+          <td class="left-col"><mat-icon color="accent">refresh</mat-icon></td>
+          <td>Reset simulation</td>
+        </tr>
+      </table>
+  </mat-expansion-panel>
+  </mat-accordion>
 </mat-card>

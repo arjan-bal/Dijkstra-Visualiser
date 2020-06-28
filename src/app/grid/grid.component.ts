@@ -21,6 +21,7 @@ export class GridComponent implements OnInit{
   weightSlider = 20;
   draggingSource = false;
   draggingDest = false;
+  instructionOpenState = false;
 
   getClass(node: Node) {
     if (node == this.sourceNode) {
