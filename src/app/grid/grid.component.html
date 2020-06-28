@@ -30,9 +30,15 @@
     <button
     mat-fab
     color="primary"
+    (click)="reinit()">
+      <mat-icon color="accent">refresh</mat-icon>
+    </button>
+    <button
+    mat-fab
+    color="primary"
     (click)="findPath()">
       <mat-icon color="accent">navigation</mat-icon>
-  </button>
+    </button>
   </div>
 
   <mat-divider></mat-divider>

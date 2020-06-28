@@ -107,7 +107,10 @@ export class GridComponent implements OnInit{
   randomWalls() {
     for (let i = 0; i < this.height; ++i) {
       for (let j = 0; j < this.width; ++j) {
-        this.grid[i][j].isBlocked = (Math.random() < 0.3);
+        const currrent = this.grid[i][j];
+        if (currrent != this.sourceNode && currrent != this.destNode) {
+          currrent.isBlocked = (Math.random() < 0.3);
+        }
       }
     }
   }

@@ -1,5 +1,11 @@
+interface HeapNode {
+  distance: number,
+  x: number,
+  y: number
+};
+
 export class MinHeap {
-  private heap: Array<[number, number, number]> = [];
+  private heap: Array<HeapNode> = [];
 
   empty() {
     return (this.heap.length == 0);
@@ -12,13 +18,17 @@ export class MinHeap {
   }
 
   push(distance: number, x: number, y: number) {
-    this.heap.push([distance, x, y]);
+    this.heap.push({
+      distance: distance,
+      x: x,
+      y: y
+    });
     let cur = this.heap.length - 1;
 
     while (cur > 0) {
       let par = Math.floor((cur - 1) / 2);
       // check if cur is greater than par
-      if (this.heap[cur][0] >= this.heap[par][0]) {
+      if (this.heap[cur].distance >= this.heap[par].distance) {
         return ;
       }
       this.swap(cur, par);
@@ -27,12 +37,12 @@ export class MinHeap {
   }
 
 
-  pop(): any {
+  pop(): HeapNode {
     if (this.empty()) {
       return null;
     }
 
-    let ret = this.heap[0].slice();
+    let ret = {...this.heap[0]};
     this.swap(0, this.heap.length - 1);
     this.heap.pop();
     const n = this.heap.length;
@@ -47,7 +57,7 @@ export class MinHeap {
       }
       // if only left child is present
       if (right >= n) {
-        if (this.heap[left][0] >= this.heap[cur][0]) {
+        if (this.heap[left].distance >= this.heap[cur].distance) {
           return ret;
         }
         this.swap(left, cur);
@@ -56,11 +66,11 @@ export class MinHeap {
       }
       // both children are present
       // check if cur is smaller than both
-      if (this.heap[cur][0] <= Math.min(this.heap[left][0], this.heap[right][0])) {
+      if (this.heap[cur].distance <= Math.min(this.heap[left].distance, this.heap[right].distance)) {
         return ret;
       }
       // need to swap with smaller child
-      if (this.heap[left][0] <= this.heap[right][0]) {
+      if (this.heap[left].distance <= this.heap[right].distance) {
         this.swap(cur, left);
         cur = left;
         continue;

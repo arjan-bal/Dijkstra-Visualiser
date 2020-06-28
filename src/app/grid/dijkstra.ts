@@ -37,7 +37,7 @@ export class Dijkstra {
 
     while (!queue.empty()) {
       let front = queue.pop();
-      let currentDistance = front[0], cx = front[1], cy = front[2];
+      let currentDistance = front.distance, cx = front.x, cy = front.y;
       const current = grid[cx][cy];
 
       if (current.isColored) {
@@ -64,12 +64,12 @@ export class Dijkstra {
         if (nextNode.distance == -1 || currentDistance + current.weight < nextNode.distance) {
           nextNode.distance = currentDistance + current.weight;
           nextNode.parent = current;
-          queue.push(currentDistance + current.weight, nextNode.x, nextNode.y);
+          queue.push(nextNode.distance, nextNode.x, nextNode.y);
         }
       }
     }
 
-    if (destNode.distance >= 0) {
+    if (destNode.isColored) {
       this.animatePath(destNode);
     } else {
       alert('No path to destination!');
