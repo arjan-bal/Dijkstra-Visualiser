@@ -64,8 +64,10 @@ export class GridComponent implements OnInit{
     }
     if (this.draggingSource) {
       this.sourceNode = node;
+      node.isBlocked = false;
     } else if (this.draggingDest) {
       this.destNode = node;
+      node.isBlocked = false;
     } else if (node == this.sourceNode) {
       this.draggingSource = true;
     } else if (node == this.destNode) {
