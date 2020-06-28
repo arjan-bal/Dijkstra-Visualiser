@@ -14,7 +14,7 @@ export class GridComponent implements OnInit{
   grid: Node[][];
   sourceNode: Node;
   destNode: Node;
-  editMode: string;
+  editMode = "AddWall";
   mouseDown = false;
   dijkstra: Dijkstra;
   grid1D: Node[];
