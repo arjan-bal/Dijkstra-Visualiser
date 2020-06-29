@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import { Node } from './node.model';
 import { Dijkstra } from './dijkstra';
+import { MazePartation } from './maze-partation';
 
 @Component({
   selector: 'app-grid',
@@ -22,6 +23,7 @@ export class GridComponent implements OnInit{
   draggingSource = false;
   draggingDest = false;
   instructionOpenState = false;
+  maze: MazePartation;
 
   getClass(node: Node) {
     if (node == this.sourceNode) {
@@ -65,10 +67,8 @@ export class GridComponent implements OnInit{
     }
     if (this.draggingSource) {
       this.sourceNode = node;
-      node.isBlocked = false;
     } else if (this.draggingDest) {
       this.destNode = node;
-      node.isBlocked = false;
     } else if (node == this.sourceNode) {
       this.draggingSource = true;
     } else if (node == this.destNode) {
@@ -83,7 +83,7 @@ export class GridComponent implements OnInit{
   }
 
   findPath() {
-    this.dijkstra.findPath(this.sourceNode, this.destNode);
+    this.dijkstra.findPath(this.grid, this.sourceNode, this.destNode);
   }
 
   reinit() {
@@ -120,18 +120,12 @@ export class GridComponent implements OnInit{
   }
 
   randomWalls() {
-    for (let i = 0; i < this.height; ++i) {
-      for (let j = 0; j < this.width; ++j) {
-        const currrent = this.grid[i][j];
-        if (currrent != this.sourceNode && currrent != this.destNode) {
-          currrent.isBlocked = (Math.random() < 0.3);
-        }
-      }
-    }
+    this.maze.mazify(this.grid);
   }
 
   ngOnInit() {
+    this.dijkstra = new Dijkstra;
+    this.maze = new MazePartation;
     this.reinit();
-    this.dijkstra = new Dijkstra(this.grid);
   }
 }

@@ -4,10 +4,6 @@ import { MinHeap } from './min-heap';
 export class Dijkstra {
   private grid: Node[][];
 
-  constructor(grid: Node[][]) {
-    this.grid = grid;
-  }
-
   delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
@@ -28,11 +24,14 @@ export class Dijkstra {
     }
   }
 
-  async findPath(sourceNode: Node, destNode: Node) {
+  async findPath(grid: Node[][], sourceNode: Node, destNode: Node) {
     const dx = [-1, 1, 0, 0];
     const dy = [0, 0, -1, 1];
 
     console.log("In path function");
+    this.grid = grid;
+    sourceNode.isBlocked = false;
+    destNode.isBlocked = false;
     const queue = new MinHeap;
     sourceNode.distance = 0;
     queue.push(0, sourceNode.x, sourceNode.y);
@@ -41,7 +40,7 @@ export class Dijkstra {
     while (!queue.empty()) {
       let front = queue.pop();
       let currentDistance = front.distance, cx = front.x, cy = front.y;
-      const current = this.grid[cx][cy];
+      const current = grid[cx][cy];
 
       if (current.isColored) {
         continue;
@@ -60,7 +59,7 @@ export class Dijkstra {
         if (!this.validCordinate(nextX, nextY)) {
           continue;
         }
-        const nextNode = this.grid[nextX][nextY];
+        const nextNode = grid[nextX][nextY];
         if (nextNode.isBlocked) {
           continue;
         }
