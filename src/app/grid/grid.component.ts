@@ -83,7 +83,7 @@ export class GridComponent implements OnInit{
   }
 
   findPath() {
-    this.dijkstra.findPath(this.grid, this.sourceNode, this.destNode);
+    this.dijkstra.findPath(this.sourceNode, this.destNode);
   }
 
   reinit() {
@@ -131,7 +131,7 @@ export class GridComponent implements OnInit{
   }
 
   ngOnInit() {
-    this.dijkstra = new Dijkstra;
     this.reinit();
+    this.dijkstra = new Dijkstra(this.grid);
   }
 }
