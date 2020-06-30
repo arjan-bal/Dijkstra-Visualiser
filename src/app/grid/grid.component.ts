@@ -10,8 +10,8 @@ import { MazePartation } from './maze-partation';
   styleUrls: ['./grid.component.css']
 })
 export class GridComponent implements OnInit{
-  height = 10;
-  width = 20;
+  height = 13;
+  width = 45;
   grid: Node[][];
   sourceNode: Node;
   destNode: Node;
