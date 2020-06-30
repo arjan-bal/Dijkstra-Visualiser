@@ -6,7 +6,7 @@ interface Hole {
   y: number;
 };
 
-const timeDelay = 20;
+const timeDelay = 40;
 
 export class MazePartation {
   private grid: Node[][];
